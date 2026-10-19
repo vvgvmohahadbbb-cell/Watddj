@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1220"><title>همسة</title>
+<style>
+:root{--bg:#0B1220;--pn:#121C2F;--ln:#1E2B42;--th:#1A2740;--tx:#EAF1FA;--mu:#8CA0B8;--ac:linear-gradient(135deg,#FFC53D,#FF9F1C);color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#F4F6FA;--pn:#fff;--ln:#E3E8F0;--th:#fff;--tx:#0E1A2B;--mu:#64748B;color-scheme:light}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,"Segoe UI",Tahoma,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);overflow:hidden}
+#app{height:100%;max-width:600px;margin:auto;position:relative;overflow:hidden}
+.v{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);animation:fade .28s ease both}
+.ch{animation:slide .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fade{from{opacity:0}}@keyframes slide{from{opacity:0;transform:translateX(-28px)}}
+@keyframes pop{from{opacity:0;transform:scale(.88) translateY(8px)}}@keyframes up{from{transform:translateY(100%)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #ffb70388}100%{box-shadow:0 0 0 28px #ffb70300}}
+@keyframes glow{50%{transform:scale(1.15) rotate(8deg)}}
+button,input{font:inherit;color:inherit}
+input{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:13px 14px;width:100%;outline:none;transition:.2s}
+input:focus{border-color:#FFB703;box-shadow:0 0 0 3px #ffb70033}
+.btn{background:var(--ac);color:#1a1200;border:0;border-radius:14px;padding:13px 20px;font-weight:700;cursor:pointer;transition:transform .15s}
+.btn:active,.row:active,.ic:active,.send:active{transform:scale(.95)}.btn.sm{padding:9px 16px}.btn.gh{background:var(--th);color:var(--tx)}
+.ic{background:none;border:0;font-size:22px;width:44px;height:44px;border-radius:50%;cursor:pointer;transition:.15s;flex:none}.ic:hover{background:var(--th)}
+.lk{background:none;border:0;color:var(--mu);padding:8px;cursor:pointer}.red{color:#ff6b6b}.mu{color:var(--mu)}.sm{font-size:13px}
+.top{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--pn);border-bottom:1px solid var(--ln)}
+.top b{flex:1;min-width:0}.who{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;overflow:hidden;position:relative}
+.av img{width:100%;height:100%;object-fit:cover}.av.xl{width:110px;height:110px;font-size:44px}.av.xl.pulse{animation:pulse 1.6s infinite}
+.auth{justify-content:center;align-items:stretch;padding:28px;gap:12px;overflow:auto}
+.glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(#ffb70033,transparent 65%);top:-60px;right:-80px;animation:glow 9s infinite;pointer-events:none}
+.auth h1{margin:0;text-align:center}.auth .lg{margin:0 auto;animation:pop .5s both}.er{color:#ff8a8a;min-height:20px;text-align:center}
+.list{flex:1;overflow:auto;padding-bottom:90px}
+.row{display:flex;gap:12px;padding:12px 14px;cursor:pointer;align-items:center;transition:.15s;animation:pop .3s both}.row:hover{background:var(--pn)}
+.row>div:nth-child(2){flex:1;min-width:0;border-bottom:1px solid var(--ln);padding-bottom:10px}
+.row p{margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.row .rt{display:flex;justify-content:space-between;gap:8px}
+.dot{background:var(--ac);color:#1a1200;border-radius:99px;padding:0 8px;font-size:12px;font-weight:700;min-width:22px;text-align:center;animation:pop .3s}
+.fab{position:absolute;bottom:22px;inset-inline-end:20px;width:58px;height:58px;border-radius:20px;border:0;background:var(--ac);color:#1a1200;font-size:30px;box-shadow:0 8px 24px #ff9f1c55;cursor:pointer;animation:pop .4s .2s both;transition:.15s}.fab:active{transform:scale(.9)}
+.empty{padding:50px 30px;text-align:center;color:var(--mu)}.empty .e{font-size:54px;animation:pop .6s both}
+.msgs{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:5px;scroll-behavior:smooth}
+.b{max-width:80%;padding:8px 12px 6px;border-radius:18px;background:var(--th);align-self:flex-end;word-break:break-word;border:1px solid var(--ln);border-top-left-radius:6px}
+.b.me{background:var(--ac);color:#1a1200;align-self:flex-start;border:0;border-top-left-radius:18px;border-top-right-radius:6px}
+.b.in{animation:pop .24s cubic-bezier(.2,.9,.3,1.2)}
+.b.s{background:none;border:0;font-size:60px;line-height:1.1;padding:0}.b.s img{width:130px;height:130px;object-fit:contain;border-radius:14px}
+.b small{display:flex;gap:4px;justify-content:flex-end;opacity:.65;font-size:11px;margin-top:2px}
+.tk{font-style:normal;font-size:12px;opacity:.8}.tk.rd{color:#0b63c9;opacity:1;font-weight:700}
+.b img.ph{max-width:100%;border-radius:12px;display:block;min-height:40px}
+.bar{display:flex;gap:4px;padding:8px;background:var(--pn);border-top:1px solid var(--ln);align-items:center}
+.bar input{border-radius:22px}.send{width:46px;height:46px;border-radius:50%;border:0;background:var(--ac);color:#1a1200;font-size:19px;display:grid;place-items:center;cursor:pointer;flex:none;animation:pop .2s;transition:.15s}
+#sd span{display:inline-block;transform:scaleX(-1)}.send.rec{background:#e5484d;color:#fff;animation:pulse 1.2s infinite}
+.pan{display:flex;flex-wrap:wrap;gap:4px;padding:8px;background:var(--pn);max-height:180px;overflow:auto;border-top:1px solid var(--ln);animation:fade .2s}
+.pan button{background:none;border:0;font-size:30px;cursor:pointer;transition:.12s}.pan button:active{transform:scale(1.3)}.pan img{width:54px;height:54px;object-fit:cover;border-radius:10px;cursor:pointer}
+.bn{background:var(--ac);color:#1a1200;padding:10px;text-align:center;font-weight:700;cursor:pointer}
+.sh{position:absolute;inset:0;background:#0008;display:flex;align-items:flex-end;z-index:20;animation:fade .2s}
+.card{width:100%;background:var(--pn);border-radius:26px 26px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;align-items:stretch;text-align:center;animation:up .3s cubic-bezier(.2,.8,.2,1);max-height:92%;overflow:auto}
+.pf{display:flex;flex-direction:column;gap:10px;align-items:center}.pf>*{max-width:100%}.pf input,.pf .btn{width:100%}
+.pf h2{margin:0}.num{font-size:28px;letter-spacing:2px;font-weight:800;direction:ltr;background:var(--ac);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rw{display:flex;gap:8px}.cam{position:absolute;bottom:0;inset-inline-end:0;background:var(--ac);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:16px;cursor:pointer}
+.tt{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:#000c;color:#fff;padding:9px 18px;border-radius:20px;z-index:50;animation:pop .25s;font-size:14px}
+#call{position:fixed;inset:0;background:#06101c;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:99;color:#fff}
+#call video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none}.vid #rv{opacity:1}.vid .cc{display:none}
+#call #lv{inset:auto;top:16px;left:16px;width:96px;height:130px;border-radius:14px;z-index:2;background:#000}.vid #lv{opacity:1}
+.cc{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center;z-index:1}.cc h2{margin:6px 0 0}
+#cb{display:flex;gap:18px;position:absolute;bottom:48px;z-index:3}.cbn{width:68px;height:68px;border-radius:50%;border:0;font-size:26px;background:#ffffff22;color:#fff;cursor:pointer;transition:.15s}.cbn:active{transform:scale(.9)}.cbn.red{background:#e5484d}.cbn.grn{background:#2fb344}
+i.on{position:absolute;bottom:1px;inset-inline-end:1px;width:13px;height:13px;border-radius:50%;background:#3ddc84;border:2px solid var(--bg)}
+.mn{font-weight:700;color:#7cc4ff}.me .mn{color:#0b4fa8}.sn{display:block;font-size:13px;margin-bottom:2px}.b.mm{box-shadow:0 0 0 2px #FFB703}
+.pk{display:flex;gap:10px;align-items:center;padding:8px 4px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div id="app"></div>
+<div id="call"><video id="rv" autoplay playsinline></video><video id="lv" autoplay playsinline muted></video>
+<div class="cc"><div class="av xl pulse" id="cav"></div><h2 id="ct"></h2><div id="cs" class="mu"></div></div><div id="cb"></div></div>
+<script>
+const $=s=>document.querySelector(s),A=$('#app'),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const VER='1.7.0',STK='😀😂🥰😎😭😡👍🙏🔥❤️🎉🤝😴🤔🙌💔🥳😱☕🌹😍🤣😉🙈'.match(/\p{Extended_Pictographic}\uFE0F?/gu);
+const LOGO='<svg viewBox="0 0 108 108" width="96" height="96"><rect width="108" height="108" rx="28" fill="#0B1220"/><path fill="#F5F7FA" d="M42,32H66A12,12 0 0 1 78,44V58A12,12 0 0 1 66,70H52L38,82V68.5A12,12 0 0 1 30,58V44A12,12 0 0 1 42,32Z"/><path fill="#0E1A2B" d="M43,47h4v8h-4zM61,45h4v12h-4z"/><path fill="#FFB703" d="M52,42h4v18h-4z"/></svg>';
+let J=(location.hash.match(/j=([\w-]+)/)||[])[1],PR={},shFor='',ws,me,D=JSON.parse(localStorage.d||'{}'),cur=null,pend={},mode='login',kicked=0,anim='',rec;
+const store=()=>localStorage.d=JSON.stringify(D),mine=()=>JSON.parse(localStorage.st||'[]');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)),RB={},offs={};
+let CFG={iceServers:[{urls:'stun:stun.l.google.com:19302'}]};
+const hue=s=>[...s].reduce((a,c)=>a*31+c.charCodeAt(0),7)%360,fmt=n=>String(n).replace(/(\d{3})(?=\d)/g,'$1 ');
+const AV=(c,cls='')=>`<div class="av ${cls}" style="${c.av?'':`background:hsl(${hue(c.name||'?')} 55% 42%)`}">${c.av?`<img src="${esc(c.av)}" alt="">`:esc((c.name||'?')[0].toUpperCase())}</div>`;
+const hm=t=>new Date(t).toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'});
+const tick=m=>m.me?`<i class="tk${m.st===3?' rd':''}">${m.st>=2?'✓✓':m.st===1?'✓':'◔'}</i>`:'';
+function toast(t){const d=document.createElement('div');d.className='tt';d.textContent=t;A.appendChild(d);setTimeout(()=>d.remove(),2000)}
+const copy=t=>{navigator.clipboard?.writeText(t);toast('تم النسخ')};
+function sheet(h){closeSheet();const d=document.createElement('div');d.className='sh';d.innerHTML=`<div class="card">${h}</div>`;d.onclick=e=>e.target===d&&closeSheet();A.appendChild(d)}
+const closeSheet=()=>{shFor='';$('.sh')?.remove()};
+function cropImg(f,n,cb){const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=n;const s=Math.min(im.width,im.height);
+  c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,n,n);cb(c.toDataURL('image/jpeg',.8))};im.src=URL.createObjectURL(f)}
+// ---- تشفير ----
+const b64=b=>{const u=new Uint8Array(b);let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)},ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const S=crypto.subtle,EC={name:'ECDH',namedCurve:'P-256'};
+async function myKeys(){if(!localStorage.k){const k=await S.generateKey(EC,true,['deriveKey']);
+  localStorage.k=JSON.stringify({pr:await S.exportKey('jwk',k.privateKey),pu:JSON.stringify(await S.exportKey('jwk',k.publicKey))})}return JSON.parse(localStorage.k)}
+const idb=new Promise(r=>{const q=indexedDB.open('h',1);q.onupgradeneeded=()=>q.result.createObjectStore('b');q.onsuccess=()=>r(q.result)});
+const idbPut=async(k,v)=>{const d=await idb;return new Promise(r=>{const t=d.transaction('b','readwrite');t.objectStore('b').put(v,k);t.oncomplete=r})};
+const idbGet=async k=>{const d=await idb;return new Promise(r=>{const q=d.transaction('b').objectStore('b').get(k);q.onsuccess=()=>r(q.result)})};
+const pubOf=n=>D[n]?.pub||Object.values(D).flatMap(c=>c.members||[]).find(x=>x.num===n)?.pub;
+const kc={};
+async function aes(n){const pb=pubOf(n);if(kc[n+pb])return kc[n+pb];const mk=await myKeys(),pr=await S.importKey('jwk',mk.pr,EC,false,['deriveKey']),pu=await S.importKey('jwk',JSON.parse(pb),EC,false,[]);
+  return kc[n+pb]=await S.deriveKey({name:'ECDH',public:pu},pr,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function enc(n,t){const iv=crypto.getRandomValues(new Uint8Array(12));return b64(iv)+'.'+b64(await S.encrypt({name:'AES-GCM',iv},await aes(n),new TextEncoder().encode(t)))}
+async function dec(n,c){const[i,d]=c.split('.');return new TextDecoder().decode(await S.decrypt({name:'AES-GCM',iv:ub(i)},await aes(n),ub(d)))}
+// ---- اتصال ----
+const tx=o=>ws&&ws.readyState===1&&ws.send(JSON.stringify(o));
+function find(n){return new Promise(r=>{pend[n]=r;tx({t:'find',num:n});setTimeout(()=>r(null),6000)})}
+function connect(){
+  fetch('/api/ice').then(r=>r.json()).then(j=>CFG={iceServers:j}).catch(()=>{});
+  ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host);
+  ws.onopen=()=>localStorage.tok?tx({t:'resume',tok:localStorage.tok}):authView();
+  ws.onclose=()=>{clearInterval(ws.pg);if(!kicked)setTimeout(connect,2500)};
+  ws.pg=setInterval(()=>tx({t:'ping'}),20000);
+  ws.onmessage=async e=>{const m=JSON.parse(e.data);
+    if(m.t==='ok'){me=m.me;localStorage.tok=m.tok;if(m.v!==VER)window.upd=1;for(const k in me.mutes||{})if(D[k])D[k].mute=me.mutes[k];
+      cur?chatView():listView();resend();window.Android?.auth?.(m.tok);setFg(document.visibilityState==='visible'?1:0);askPres();
+      if(J){tx({t:'gjoin',code:J});J=null;history.replaceState(null,'',location.pathname)}}
+    else if(m.t==='bad'){delete localStorage.tok;authView()}
+    else if(m.t==='err'){$('#er')&&($('#er').textContent=m.e)}
+    else if(m.t==='kick'){kicked=1;A.innerHTML=`<div class="v auth"><div class="lg">${LOGO}</div><h2 style="text-align:center">فُتح حسابك على جهاز آخر</h2><button class="btn" id="rt">الدخول من هنا</button></div>`;$('#rt').onclick=()=>{kicked=0;connect()}}
+    else if(m.t==='prof'){me.name=m.name;me.bio=m.bio;me.av=m.av;toast('تم الحفظ');$('.sh')&&profile()}
+    else if(m.t==='toast')toast(m.e)
+    else if(m.t==='pres'){PR=m.m;if(cur){$('#wh')&&($('#wh').innerHTML=whoHtml(cur))}else if(!$('.sh')&&document.activeElement?.id!=='sq'&&me)listView()}
+    else if(m.t==='ginfo'){const g=m.g,nw=!D[g.id];D[g.id]=Object.assign({msgs:[]},D[g.id],{g:1,name:g.name,av:g.av,owner:g.owner,admins:g.admins,members:g.members});store();
+      if(nw&&g.owner===me.num)openChat(g.id);else if(cur===g.id){$('#wh')&&($('#wh').innerHTML=whoHtml(g.id));shFor===g.id&&groupSheet(g.id)}else if(!cur&&!$('.sh'))listView()}
+    else if(m.t==='gout'){delete D[m.gid];store();closeSheet();if(cur===m.gid||!cur)listView()}
+    else if(m.t==='gmsg'){try{if(!D[m.gid])return;await got(m.gid,{id:m.id,k:m.k,t:await dec(m.from,m.c),ts:m.ts,f:m.from,mn:m.mn,ack:m.from})}catch{}}
+    else if(m.t==='ginv'){const u=location.origin+'/#j='+m.code,t=`انضم لمجموعة ${D[m.gid]?.name||''} على همسة\n${u}`;navigator.share?navigator.share({text:t}).catch(()=>copy(u)):copy(u)}
+    else if(m.t==='found'){D[m.num]=Object.assign({msgs:[]},D[m.num],{name:m.name,pub:m.pub,av:m.av,bio:m.bio});store();pend[m.num]?.(m)}
+    else if(m.t==='nf'){pend[m.num]?.(null)}
+    else if(m.t==='sent'){for(const n in D)mark(n,m.id,1)}
+    else if(m.t==='ack'){mark(m.g||m.from,m.id,m.s==='d'?2:3)}
+    else if(m.t==='msg'){const f=await find(m.from);if(!f)return;try{await got(m.from,{id:m.id,k:m.k,t:await dec(m.from,m.c),ts:m.ts})}catch{}}
+    else if(m.t==='rl')gotPiece(m.from,m)
+    else if(m.t==='off')offs[m.id]=1
+    else if(m.t==='sig')sig(m)}}
+function mark(n,id,st){const x=D[n]?.msgs.find(y=>y.id===id);if(x&&(x.st||0)<st){x.st=st;store();cur===n&&paint()}}
+async function sendText(to,id,k,t){const c=D[to];
+  if(!c.g){tx({t:'msg',to,k,id,c:await enc(to,t)});return true}
+  const cs={};for(const x of c.members)if(x.num!==me.num)cs[x.num]=await enc(x.num,t);
+  const mn=c.members.filter(x=>x.num!==me.num&&t.includes('@'+x.name)).map(x=>x.num);
+  tx({t:'gmsg',gid:to,k,id,cs,mn});return true}
+async function resend(){for(const n in D)for(const m of D[n].msgs)if(m.me&&m.st===0&&'tsi'.includes(m.k)&&(D[n].g||D[n].pub))await sendText(n,m.id,m.k,m.t)}
+async function got(n,o){
+  const to=o.ack||n,g=o.ack?n:undefined,ak=s=>tx({t:'ack',to,id:o.id,s,g});
+  if(D[n].msgs.some(x=>x.id===o.id))return ak('d');
+  const open=cur===n&&document.visibilityState==='visible';
+  D[n].msgs.push({id:o.id,k:o.k,t:o.t,ts:o.ts,f:o.f,mn:o.mn,r:open?1:0,u:open?0:1});store();anim=o.id;
+  ak('d');if(open)ak('r');
+  if(!open)navigator.vibrate?.(80);
+  cur===n?paint():cur?0:listView()}
+function readAll(){if(!cur||document.visibilityState!=='visible')return;let c=0;D[cur].msgs.forEach(m=>{if(!m.me&&!m.r){m.r=1;m.u=0;c=1;tx({t:'ack',to:D[cur].g?m.f:cur,id:m.id,s:'r',g:D[cur].g?cur:undefined})}});if(c)store()}
+const setFg=v=>tx({t:'fg',v});window.setFg=setFg;
+document.addEventListener('visibilitychange',()=>{setFg(document.visibilityState==='visible'?1:0);readAll()});
+const askPres=()=>tx({t:'pres',nums:Object.keys(D).filter(n=>!D[n].g)});
+setInterval(()=>{if(me&&document.visibilityState==='visible')askPres()},25000);
+const muted=n=>D[n].mute===-1||D[n].mute>Date.now(),mname=(g,n)=>D[g].members?.find(x=>x.num===n)?.name||n;
+// ---- الشاشات ----
+function authView(){
+  A.innerHTML=`<div class="v auth"><div class="glow"></div><div class="lg">${LOGO}</div><h1>همسة</h1>
+  <p class="mu" style="text-align:center;margin:0">${mode==='login'?'أهلاً بعودتك':'رقمك المجاني يوصلك فور التسجيل'}</p>
+  <input id="u" placeholder="اسم المستخدم" autocomplete="username"><input id="p" type="password" placeholder="كلمة السر (6 أحرف+)" autocomplete="current-password">
+  <div id="er" class="er"></div><button class="btn" id="go">${mode==='login'?'دخول':'إنشاء حساب'}</button>
+  <button class="lk" id="sw">${mode==='login'?'ما عندك حساب؟ سجّل':'عندك حساب؟ ادخل'}</button></div>`;
+  $('#sw').onclick=()=>{mode=mode==='login'?'reg':'login';authView()};
+  $('#p').onkeydown=e=>e.key==='Enter'&&$('#go').click();
+  $('#go').onclick=async()=>{const k=await myKeys();tx({t:mode==='login'?'login':'register',u:$('#u').value,p:$('#p').value,pub:k.pu})}}
+const last=n=>D[n].msgs[D[n].msgs.length-1];
+function listView(){
+  cur=null;const q=($('#sq')?.value||'').trim().toLowerCase();
+  const ks=Object.keys(D).filter(n=>!q||D[n].name.toLowerCase().includes(q)||n.includes(q)).sort((a,b)=>(last(b)?.ts||0)-(last(a)?.ts||0));
+  A.innerHTML=`<div class="v">${window.upd?'<div class="bn" onclick="location.reload()">يوجد تحديث جديد — اضغط للتحديث</div>':''}
+  <div class="top"><div id="mp" style="cursor:pointer">${AV(me)}</div><b>همسة<div class="mu sm">رقمك ${fmt(me.num)}</div></b></div>
+  <div style="padding:10px 12px"><input id="sq" placeholder="بحث" value="${esc(q)}"></div>
+  <div class="list">${ks.map((n,i)=>{const l=last(n),u=D[n].msgs.filter(x=>x.u).length;
+   const pv=l?({t:esc(l.t),s:'ملصق',i:'ملصق',p:'📷 صورة',v:'🎤 رسالة صوتية',f:'📎 ملف'}[l.k]):fmt(n);
+   return `<div class="row" data-n="${n}" style="animation-delay:${i*40}ms"><div style="position:relative">${AV(D[n])}${PR[n]===1?'<i class="on"></i>':''}</div><div><div class="rt"><b>${D[n].g?'👥 ':''}${esc(D[n].name)}</b><span class="mu sm">${muted(n)?'🔕 ':''}${l?hm(l.ts):''}</span></div><div class="rt"><p class="mu">${l?tick(l):''} ${l&&l.f&&D[n].g?esc(mname(n,l.f))+': ':''}${pv}</p>${u?`<span class="dot">${u}</span>`:''}</div></div></div>`}).join('')||`<div class="empty"><div class="e">💬</div><p>ما في محادثات بعد<br>اضغط + وأضف صديقك برقمه</p></div>`}</div>
+  <button class="fab" id="fb">+</button></div>`;
+  $('#mp').onclick=profile;$('#fb').onclick=menuSheet;
+  $('#sq').oninput=()=>{const v=$('#sq').value;listView();const s=$('#sq');s.focus();s.setSelectionRange(v.length,v.length)};
+  A.querySelectorAll('.row').forEach(r=>r.onclick=()=>openChat(r.dataset.n))}
+function menuSheet(){sheet(`<button class="btn" id="m1">➕ إضافة صديق برقمه</button><button class="btn gh" id="m2">👥 مجموعة جديدة</button><button class="btn gh" id="m3">🔗 انضمام برابط دعوة</button>`);
+  $('#m1').onclick=addSheet;$('#m2').onclick=newGroup;$('#m3').onclick=joinSheet}
+function joinSheet(){sheet(`<h3 style="margin:0">الانضمام لمجموعة</h3><input id="jl" placeholder="الصق رابط الدعوة هنا" style="direction:ltr"><button class="btn" id="jb">انضمام</button>`);
+  $('#jb').onclick=()=>{const c=($('#jl').value.match(/([\w-]{8,})\s*$/)||[])[1];if(!c)return toast('الرابط غير صالح');tx({t:'gjoin',code:c});closeSheet()}}
+function newGroup(){const cs=Object.keys(D).filter(n=>!D[n].g);
+  sheet(`<h3 style="margin:0">مجموعة جديدة</h3><input id="gn" maxlength="40" placeholder="اسم المجموعة"><div style="max-height:34vh;overflow:auto;text-align:start">${cs.map(n=>`<label class="pk"><input type="checkbox" value="${n}" style="width:auto">${AV(D[n])}<b>${esc(D[n].name)}</b></label>`).join('')||'<p class="mu">أضف أصدقاء أولاً</p>'}</div><button class="btn" id="gc">إنشاء</button>`);
+  $('#gc').onclick=()=>{const name=$('#gn').value.trim();if(!name)return toast('اكتب اسم المجموعة');
+    tx({t:'gcreate',name,members:[...A.querySelectorAll('.sh input:checked')].map(x=>x.value)});closeSheet()}}
+function muteSheet(k){if(muted(k)){D[k].mute=0;store();tx({t:'mute',key:k,until:0});closeSheet();return toast('تم إلغاء الكتم')}
+  sheet(`<h3 style="margin:0">كتم الإشعارات</h3>${[['ساعة',36e5],['8 ساعات',288e5],['أسبوع',6048e5],['دائماً',-1]].map(([l,v])=>`<button class="btn gh" data-v="${v}">${l}</button>`).join('')}`);
+  A.querySelectorAll('.sh [data-v]').forEach(b=>b.onclick=()=>{const v=+b.dataset.v,u=v>0?Date.now()+v:-1;D[k].mute=u;store();tx({t:'mute',key:k,until:u});closeSheet();toast('تم الكتم 🔕')})}
+function addMembers(id){const g=D[id],cs=Object.keys(D).filter(n=>!D[n].g&&!g.members.some(x=>x.num===n));
+  sheet(`<h3 style="margin:0">إضافة أعضاء</h3><div style="max-height:40vh;overflow:auto;text-align:start">${cs.map(n=>`<label class="pk"><input type="checkbox" value="${n}" style="width:auto">${AV(D[n])}<b>${esc(D[n].name)}</b></label>`).join('')||'<p class="mu">كل أصدقائك أعضاء</p>'}</div><button class="btn" id="ab">إضافة</button>`);
+  $('#ab').onclick=()=>{tx({t:'gadd',gid:id,nums:[...A.querySelectorAll('.sh input:checked')].map(x=>x.value)});closeSheet()}}
+function groupSheet(id){const g=D[id],ow=g.owner===me.num,ad=ow||g.admins.includes(me.num);
+  sheet(`<div class="pf"><div style="position:relative">${AV(g,'xl')}${ad?'<label class="cam">📷<input type="file" id="gf" accept="image/*" hidden></label>':''}</div>
+  ${ad?`<input id="gn2" maxlength="40" value="${esc(g.name)}"><button class="btn sm" id="gs">حفظ الاسم</button>`:`<h2>${esc(g.name)}</h2>`}
+  <div class="rw"><button class="btn sm" id="gl">🔗 رابط الدعوة</button>${ad?'<button class="btn sm gh" id="gr">رابط جديد</button>':''}</div>
+  ${ad?'<button class="btn sm gh" id="ga">➕ إضافة أعضاء</button>':''}
+  <button class="lk" id="gm">${muted(id)?'🔕 إلغاء الكتم':'🔕 كتم الإشعارات'}</button>
+  <b class="mu sm">الأعضاء (${g.members.length})</b>
+  <div style="width:100%;text-align:start">${g.members.map(x=>`<div class="pk"><div class="av" style="width:36px;height:36px;font-size:15px;background:hsl(${hue(x.name)} 55% 42%)">${esc(x.name[0].toUpperCase())}</div><span style="flex:1">${esc(x.num===me.num?'أنت':x.name)} ${x.num===g.owner?'👑':g.admins.includes(x.num)?'<small class="mu">مشرف</small>':''}</span>
+   ${ow&&x.num!==me.num&&x.num!==g.owner?`<button class="lk" data-a="${x.num}" data-on="${g.admins.includes(x.num)?0:1}">${g.admins.includes(x.num)?'إزالة إشراف':'ترقية'}</button>`:''}
+   ${ad&&x.num!==me.num&&x.num!==g.owner&&(ow||!g.admins.includes(x.num))?`<button class="lk red" data-k="${x.num}">إزالة</button>`:''}</div>`).join('')}</div>
+  <button class="lk red" id="gx">مغادرة المجموعة</button></div>`);shFor=id;
+  $('#gl').onclick=()=>tx({t:'ginv',gid:id});
+  $('#gr')&&($('#gr').onclick=()=>confirm('إلغاء الرابط القديم وإنشاء رابط جديد؟')&&tx({t:'ginv',gid:id,reset:1}));
+  $('#gs')&&($('#gs').onclick=()=>tx({t:'gedit',gid:id,name:$('#gn2').value}));
+  $('#gf')&&($('#gf').onchange=e=>e.target.files[0]&&cropImg(e.target.files[0],128,d=>tx({t:'gedit',gid:id,av:d})));
+  $('#ga')&&($('#ga').onclick=()=>addMembers(id));$('#gm').onclick=()=>muteSheet(id);
+  A.querySelectorAll('.sh [data-a]').forEach(b=>b.onclick=()=>tx({t:'gadmin',gid:id,num:b.dataset.a,on:+b.dataset.on}));
+  A.querySelectorAll('.sh [data-k]').forEach(b=>b.onclick=()=>confirm('إزالة هذا العضو؟')&&tx({t:'gkick',gid:id,num:b.dataset.k}));
+  $('#gx').onclick=()=>confirm('مغادرة المجموعة؟')&&(tx({t:'gleave',gid:id}),closeSheet())}
+function addSheet(){sheet(`<h3 style="margin:0">إضافة صديق</h3><input id="n" inputmode="numeric" placeholder="رقم صديقك" style="text-align:center;direction:ltr"><div id="ae" class="er"></div><button class="btn" id="ad">إضافة</button>`);
+  $('#n').focus();$('#ad').onclick=async()=>{const n=$('#n').value.replace(/\s/g,'');if(n===me.num)return $('#ae').textContent='هذا رقمك أنت 🙂';
+    $('#ad').textContent='...';const f=await find(n);if(f){closeSheet();openChat(n)}else{$('#ae').textContent='الرقم غير موجود';$('#ad').textContent='إضافة'}}}
+function profile(){sheet(`<div class="pf"><div style="position:relative">${AV(me,'xl')}<label class="cam">📷<input type="file" id="pf" accept="image/*" hidden></label></div>
+  <h2>${esc(me.name)}</h2><div class="num">${fmt(me.num)}</div>
+  <div class="rw"><button class="btn sm" id="cp">نسخ الرقم</button><button class="btn sm gh" id="sr">مشاركة</button></div>
+  <input id="dn" maxlength="30" value="${esc(me.name)}" placeholder="الاسم الظاهر"><input id="bio" maxlength="140" value="${esc(me.bio||'')}" placeholder="نبذة عنك"><button class="btn" id="sv">حفظ</button>
+  ${me.av?'<button class="lk" id="rm">إزالة الصورة</button>':''}<button class="lk" id="ap">📲 مشاركة رابط تنزيل التطبيق</button><button class="lk red" id="lo">تسجيل الخروج</button></div>`);
+  $('#cp').onclick=()=>copy(me.num);
+  $('#ap').onclick=()=>{const u=location.origin+'/download';navigator.share?navigator.share({text:'نزّل تطبيق همسة\n'+u}).catch(()=>{}):copy(u)};
+  $('#sr').onclick=()=>navigator.share?navigator.share({text:`ضيفني على همسة، رقمي: ${me.num}\n${location.origin}`}).catch(()=>{}):copy(me.num);
+  $('#sv').onclick=()=>tx({t:'prof',dn:$('#dn').value,bio:$('#bio').value,av:me.av||''});
+  $('#pf').onchange=e=>e.target.files[0]&&cropImg(e.target.files[0],128,d=>tx({t:'prof',dn:$('#dn').value,bio:$('#bio').value,av:d}));
+  $('#rm')&&($('#rm').onclick=()=>tx({t:'prof',dn:$('#dn').value,bio:$('#bio').value,av:''}));
+  $('#lo').onclick=()=>{if(confirm('تسجيل الخروج؟ سيتم حذف المحادثات والمفاتيح من هذا الجهاز.')){localStorage.clear();indexedDB.deleteDatabase('h');location.reload()}}}
+function cprof(n){if(D[n].g)return groupSheet(n);const c=D[n];sheet(`<div class="pf">${AV(c,'xl')}<h2>${esc(c.name)}</h2><div class="num">${fmt(n)}</div><p class="mu" style="margin:0">${esc(c.bio||'')}</p>
+  <div class="rw"><button class="btn sm" id="c1">📞 صوت</button><button class="btn sm gh" id="c2">🎥 فيديو</button></div><button class="lk" id="cc">نسخ الرقم</button><button class="lk" id="cm">${muted(n)?'🔕 إلغاء الكتم':'🔕 كتم الإشعارات'}</button></div>`);
+  $('#c1').onclick=()=>{closeSheet();call(n,0)};$('#c2').onclick=()=>{closeSheet();call(n,1)};$('#cc').onclick=()=>copy(n);$('#cm').onclick=()=>muteSheet(n)}
+function openChat(n){cur=n;D[n].msgs.forEach(x=>x.u=0);store();chatView();readAll();
+  askPres();!D[n].g&&find(n).then(f=>{if(f&&cur===n&&$('#wh'))$('#wh').innerHTML=whoHtml(n)})}
+const subOf=n=>D[n].g?`${D[n].members.length} عضو`:PR[n]===1?'<span style="color:#3ddc84">متصل الآن</span>':PR[n]?'آخر ظهور '+hm(PR[n]):esc(D[n].bio||fmt(n));
+const whoHtml=n=>`${AV(D[n])}<div style="min-width:0"><b>${esc(D[n].name)}</b><div class="mu sm">${subOf(n)}</div></div>`;
+function chatView(){
+  A.innerHTML=`<div class="v ch"><div class="top"><button class="ic" id="bk">→</button><div class="who" id="wh">${whoHtml(cur)}</div>
+  ${D[cur].g?'':'<button class="ic" id="ca">📞</button><button class="ic" id="cv">🎥</button>'}</div>
+  <div class="msgs" id="ms"></div><div id="pn"></div>
+  <div class="bar"><button class="ic" id="st">😊</button><button class="ic" id="at">📎</button><input type="file" id="af" hidden>
+  <input id="in" placeholder="اكتب رسالة" autocomplete="off"><button class="send" id="sd" style="display:none"><span>➤</span></button><button class="send" id="mc">🎤</button></div></div>`;
+  paint(1);const tog=()=>{const h=$('#in').value.trim();$('#sd').style.display=h?'grid':'none';$('#mc').style.display=h?'none':'grid';
+    if(D[cur].g){const mt=$('#in').value.match(/@([^\s@]*)$/),pn=$('#pn');
+      if(mt){const l=D[cur].members.filter(x=>x.num!==me.num&&x.name.startsWith(mt[1])).slice(0,8);
+        pn.innerHTML=l.length?`<div class="pan">${l.map(x=>`<button style="font-size:15px;padding:6px 12px;border-radius:14px;background:var(--th);color:var(--tx)" data-m="${esc(x.name)}">@${esc(x.name)}</button>`).join('')}</div>`:'';
+        pn.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{$('#in').value=$('#in').value.replace(/@([^\s@]*)$/,'@'+b.dataset.m+' ');pn.innerHTML='';$('#in').focus();tog()})}
+      else if(pn.querySelector('[data-m]'))pn.innerHTML=''}};
+  $('#bk').onclick=listView;$('#wh').onclick=()=>cprof(cur);$('#in').oninput=tog;
+  $('#sd').onclick=()=>{const v=$('#in').value;$('#in').value='';tog();post('t',v)};
+  $('#in').onkeydown=e=>e.key==='Enter'&&$('#sd').click();
+  $('#ca')&&($('#ca').onclick=()=>call(cur,0));$('#cv')&&($('#cv').onclick=()=>call(cur,1));$('#mc').onclick=mic;
+  $('#at').onclick=()=>$('#af').click();$('#af').onchange=e=>{const f=e.target.files[0];f&&postMedia(f.type.startsWith('image/')?'p':'f',f)};
+  $('#st').onclick=()=>{const p=$('#pn');if(p.innerHTML)return p.innerHTML='';
+    p.innerHTML=`<div class="pan">${STK.map(s=>`<button data-s="${s}">${s}</button>`).join('')}${mine().map((s,i)=>`<img data-i="${i}" src="${s}">`).join('')}<button id="pl">＋🖼</button></div><input type="file" id="fl" accept="image/*" hidden>`;
+    p.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>post('s',b.dataset.s));
+    p.querySelectorAll('[data-i]').forEach(i=>i.onclick=()=>post('i',i.src));
+    $('#pl').onclick=()=>$('#fl').click();
+    $('#fl').onchange=e=>e.target.files[0]&&cropImg(e.target.files[0],160,d=>{const a=mine();a.push(d);localStorage.st=JSON.stringify(a);$('#st').click();$('#st').click()})}}
+const sz=n=>n>1e6?(n/1e6).toFixed(1)+' MB':Math.ceil(n/1e3)+' KB';
+function bodyOf(m){if(m.k==='s')return esc(m.t);if(m.k==='t')return esc(m.t).replace(/@([^\s@]+)/g,'<span class="mn">@$1</span>');if(m.k==='i')return `<img src="${esc(m.t)}">`;const o=JSON.parse(m.t);
+  if(m.k==='p')return `<img class="ph" data-b="${m.id}" alt="">`;
+  if(m.k==='v')return `<audio controls data-b="${m.id}" style="max-width:100%"></audio>`;
+  return `<a data-b="${m.id}" data-n="${esc(o.n)}" data-m="${esc(o.m||'')}" download="${esc(o.n)}" style="color:inherit">📄 ${esc(o.n)} (${sz(o.s)})</a>`}
+function paint(first){const ms=$('#ms');if(!ms||!cur)return;
+  ms.innerHTML=D[cur].msgs.map(m=>`<div class="b ${m.me?'me':''} ${'si'.includes(m.k)?'s':''} ${m.id===anim?'in':''} ${m.mn?'mm':''}" dir="auto">${D[cur].g&&!m.me&&m.f?`<b class="sn" style="color:hsl(${hue(m.f)} 65% 62%)">${esc(mname(cur,m.f))}</b>`:''}${bodyOf(m)}<small>${hm(m.ts)}${tick(m)}</small></div>`).join('');anim='';
+  ms.style.scrollBehavior=first?'auto':'smooth';ms.scrollTop=ms.scrollHeight;
+  ms.querySelectorAll('[data-b]').forEach(async e=>{const d=await idbGet(e.dataset.b);if(!d)return;
+    if(e.tagName==='A'){e.href=d;if(window.Android)e.onclick=ev=>{ev.preventDefault();Android.save(e.dataset.n,e.dataset.m,d)}}
+    else{e.src=d;if(e.tagName==='IMG')e.onclick=()=>sheet(`<img src="${d}" style="max-width:100%;max-height:75vh;border-radius:14px;object-fit:contain">`)}})}
+async function post(k,t){if(!t||!t.trim())return;const to=cur,id=Date.now()+''+Math.random().toString(36).slice(2,6);
+  if(D[to].g&&t.length*1.4*(D[to].members.length-1)>58000)return toast('الرسالة كبيرة للمجموعة');
+  D[to].msgs.push({id,k,t,ts:Date.now(),me:1,st:0});store();anim=id;paint();$('#pn')&&k!=='t'&&($('#pn').innerHTML='');
+  sendText(to,id,k,t)}
+async function sendAny(to,id,k,payload){const c=D[to];if(!c.g)return sendP2P(to,id,k,payload);
+  let ok=false;for(const x of c.members)if(x.num!==me.num&&await sendP2P(x.num,id,k,payload,to))ok=true;return ok}
+async function postMedia(k,file,to=cur){
+  if(file.size>2e7)return toast('الحد الأقصى 20 ميغا');
+  const d=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(file)});
+  const id=Date.now()+''+Math.random().toString(36).slice(2,6),o={n:file.name||'',m:file.type,s:file.size};
+  if(!await sendAny(to,id,k,JSON.stringify({...o,d})))return toast('الطرف الثاني غير متصل الآن');
+  await idbPut(id,d);D[to].msgs.push({id,k,t:JSON.stringify(o),ts:Date.now(),me:1,st:2});store();anim=id;cur===to&&paint()}
+async function mic(){const b=$('#mc');if(rec){rec.stop();return}
+  try{const s=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[],to=cur;rec=new MediaRecorder(s);
+    rec.ondataavailable=e=>ch.push(e.data);
+    rec.onstop=()=>{s.getTracks().forEach(t=>t.stop());const bl=new Blob(ch,{type:rec.mimeType});rec=null;$('#mc')?.classList.remove('rec');postMedia('v',new File([bl],'voice',{type:bl.type}),to)};
+    rec.start();b.classList.add('rec')}catch{toast('اسمح بالميكروفون')}}
+// ---- نقل مباشر P2P للملفات ----
+const peers={};
+function peer(n){const o=peers[n];if(o&&!['failed','closed'].includes(o.pc.connectionState))return o;
+  const p=peers[n]={pc:new RTCPeerConnection(CFG),ch:null,iq:[]};
+  p.pc.onicecandidate=e=>e.candidate&&tx({t:'sig',to:n,d:{dc:{ice:e.candidate}}});
+  p.pc.ondatachannel=e=>setCh(n,e.channel);return p}
+function setCh(n,ch){peers[n].ch=ch;ch.onmessage=e=>gotPiece(n,JSON.parse(e.data))}
+async function openP2P(n){const p=peer(n);if(p.ch&&p.ch.readyState==='open')return p;
+  if(!p.offering){p.offering=1;setCh(n,p.pc.createDataChannel('f'));const o=await p.pc.createOffer();await p.pc.setLocalDescription(o);tx({t:'sig',to:n,d:{dc:{offer:o}}})}
+  for(let i=0;i<80;i++){if(p.ch&&p.ch.readyState==='open')return p;await sleep(100)}
+  p.pc.close();delete peers[n];return null}
+async function dcSig(m){const d=m.d.dc;let p;
+  if(d.offer){if(peers[m.from]){peers[m.from].pc.close();delete peers[m.from]}
+    p=peer(m.from);await p.pc.setRemoteDescription(d.offer);p.iq.forEach(c=>p.pc.addIceCandidate(c));p.iq=[];
+    const a=await p.pc.createAnswer();await p.pc.setLocalDescription(a);tx({t:'sig',to:m.from,d:{dc:{answer:a}}})}
+  else{p=peers[m.from];if(!p)return;
+    if(d.answer){await p.pc.setRemoteDescription(d.answer);p.iq.forEach(c=>p.pc.addIceCandidate(c));p.iq=[]}
+    else if(d.ice){p.pc.remoteDescription?p.pc.addIceCandidate(d.ice):p.iq.push(d.ice)}}}
+async function sendP2P(n,id,k,payload,g){
+  const p=await openP2P(n),c=await enc(n,payload),N=Math.ceil(c.length/15000);
+  for(let i=0;i<N;i++){const o={id,k,x:i,N,p:c.slice(i*15000,(i+1)*15000),g};
+    if(p&&p.ch.readyState==='open'){while(p.ch.bufferedAmount>1e6)await sleep(50);p.ch.send(JSON.stringify(o))}
+    else{while(ws.bufferedAmount>1e6)await sleep(50);tx({t:'rl',to:n,...o});if(i===0){await sleep(500);if(offs[id])return false}}}
+  return true}
+async function gotPiece(n,m){const b=RB[n]=RB[n]||{};(b[m.id]=b[m.id]||[])[m.x]=m.p;
+  if(b[m.id].filter(Boolean).length<m.N)return;const c=b[m.id].join('');delete b[m.id];
+  if(!pubOf(n)&&!await find(n))return;
+  try{if(m.g&&!D[m.g])return;const o=JSON.parse(await dec(n,c));await idbPut(m.id,o.d);await got(m.g||n,{id:m.id,k:m.k,t:JSON.stringify({n:o.n,m:o.m,s:o.s}),ts:Date.now(),f:m.g?n:undefined,ack:m.g?n:undefined})}catch{}}
+// ---- مكالمات ----
+let pc,callPeer,pcQ=[],lstream,ctm,t0;
+function callUi(name,sub,n){const c=$('#call');if(!name){c.style.display='none';c.classList.remove('vid');clearInterval(ctm);return}
+  c.style.display='flex';$('#ct').textContent=name;$('#cs').textContent=sub;const a=D[n]||{name};$('#cav').style.background=a.av?'':`hsl(${hue(name)} 55% 42%)`;
+  $('#cav').innerHTML=a.av?`<img src="${esc(a.av)}" alt="">`:esc(name[0].toUpperCase())}
+function setBtns(){$('#cb').innerHTML=`<button class="cbn" id="mt">🎙</button><button class="cbn red" id="hg">✆</button>`;
+  $('#hg').onclick=()=>endCall();$('#mt').onclick=e=>{lstream?.getAudioTracks().forEach(t=>t.enabled=!t.enabled);e.target.textContent=lstream?.getAudioTracks()[0]?.enabled?'🎙':'🔇'}}
+function connected(){t0=Date.now();clearInterval(ctm);ctm=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000);$('#cs').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000);setBtns()}
+async function mkPc(n,v){callPeer=n;pc=new RTCPeerConnection(CFG);
+  lstream=await navigator.mediaDevices.getUserMedia({audio:true,video:!!v});
+  $('#lv').srcObject=lstream;lstream.getTracks().forEach(t=>pc.addTrack(t,lstream));$('#call').classList.toggle('vid',!!v);
+  pc.onicecandidate=e=>e.candidate&&tx({t:'sig',to:n,d:{ice:e.candidate}});
+  pc.ontrack=e=>$('#rv').srcObject=e.streams[0];
+  pc.onconnectionstatechange=()=>{const s=pc.connectionState;if(s==='connected')connected();if(['failed','closed'].includes(s))endCall()}}
+async function call(n,v){if(pc)return;
+  try{await mkPc(n,v)}catch{endCall(0);return toast('اسمح بالميكروفون/الكاميرا (يلزم HTTPS)')}
+  const o=await pc.createOffer();await pc.setLocalDescription(o);tx({t:'sig',to:n,d:{offer:o,v}});
+  callUi(D[n].name,'يتصل...',n);$('#cb').innerHTML='<button class="cbn red" id="hg">✆</button>';$('#hg').onclick=()=>endCall()}
+function endCall(send=1){if(send&&callPeer)tx({t:'sig',to:callPeer,d:{end:1}});pc?.close();pc=null;pcQ=[];
+  lstream?.getTracks().forEach(t=>t.stop());lstream=null;$('#lv').srcObject=null;$('#rv').srcObject=null;callPeer=null;callUi()}
+async function sig(m){const d=m.d;if(d.dc)return dcSig(m);
+  if(d.offer){if(pc||callPeer)return tx({t:'sig',to:m.from,d:{end:1}});await find(m.from);
+    callUi(m.name,d.v?'مكالمة فيديو واردة':'مكالمة صوتية واردة',m.from);navigator.vibrate?.([300,200,300,200,300]);
+    $('#cb').innerHTML='<button class="cbn grn" id="ac">✆</button><button class="cbn red" id="rj">✕</button>';
+    $('#rj').onclick=()=>{tx({t:'sig',to:m.from,d:{end:1}});callUi()};
+    $('#ac').onclick=async()=>{try{await mkPc(m.from,d.v)}catch{tx({t:'sig',to:m.from,d:{end:1}});endCall(0);return toast('اسمح بالميكروفون')}
+      await pc.setRemoteDescription(d.offer);pcQ.forEach(c=>pc.addIceCandidate(c));pcQ=[];
+      const a=await pc.createAnswer();await pc.setLocalDescription(a);tx({t:'sig',to:m.from,d:{answer:a}});$('#cs').textContent='جارٍ الاتصال...';setBtns()}}
+  else if(d.answer&&pc){await pc.setRemoteDescription(d.answer);pcQ.forEach(c=>pc.addIceCandidate(c));pcQ=[]}
+  else if(d.ice){pc&&pc.remoteDescription?pc.addIceCandidate(d.ice):pcQ.push(d.ice)}
+  else if(d.end&&(m.from===callPeer||!pc))endCall(0)}
+window.hBack=()=>{if($('.sh')){closeSheet();return true}if($('#call').style.display==='flex')return false;if(cur){listView();return true}return false};
+if(!window.isSecureContext)A.innerHTML='<p style="padding:24px">يلزم تشغيل الخادم بـ HTTPS كي يعمل التشفير والمكالمات.</p>';
+else connect();
+</script></body></html>
